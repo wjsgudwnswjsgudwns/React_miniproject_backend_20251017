@@ -17,80 +17,80 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Configuration
-@EnableWebSecurity // 모든 요청이 url이 스프링 시큐리티의 제어를 받도록하는 annotation
+@EnableWebSecurity
 public class SecurityConfig {
 	
-	 // 비밀번호 암호화용 Bean
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    // 보안 필터 체인 설정 (Spring Boot 3.x / Security 6.x 방식)
     @Bean
-       public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-           http
-               .csrf(csrf -> csrf.disable())  //새 방식 (람다 DSL)
-               .cors(Customizer.withDefaults())
-               .authorizeHttpRequests(auth -> auth
-                     .requestMatchers(
-                           "/", 
-                           "/index.html", 
-                           "/login", 
-                           "/signup", 
-                           "/board/**", 
-                           "/static/**")
-                     .permitAll()                   
-                       // 읽기 API는 로그인 없이 허용
-                       .requestMatchers(
-                             "/api/board", 
-                             "/api/board/**", 
-                             "/api/comments", 
-                             "/api/comments/**")
-                       .permitAll()
-                       
-                       // 쓰기/수정/삭제 API는 인증 필요
-                       .requestMatchers(
-                             "/api/board/write", 
-                             "/api/board/update/**", 
-                             "/api/board/delete/**")
-                       .authenticated()
-                       .requestMatchers(
-                             "/api/comments/write", 
-                             "/api/comments/delete/**")
-                       .authenticated()           
-                   .anyRequest().authenticated()
-               )         
-               .formLogin(login -> login    
-                  .loginPage("/login").permitAll()   
-                   .loginProcessingUrl("/api/auth/login")
-                   .usernameParameter("userId")
-                   .passwordParameter("password")
-                   .successHandler((req, res, auth) -> res.setStatus(HttpServletResponse.SC_OK))
-                   .failureHandler((req, res, ex) -> res.setStatus(HttpServletResponse.SC_UNAUTHORIZED))
-               )
-               .logout(logout -> logout
-                   .logoutUrl("/api/auth/logout")
-                   .logoutSuccessHandler((req, res, auth) -> res.setStatus(HttpServletResponse.SC_OK))
-               ); 
-          
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .csrf(csrf -> csrf.disable())
+            .cors(Customizer.withDefaults())
+            .authorizeHttpRequests(auth -> auth
+                // 🔥 인증/회원가입 API는 최우선으로 permitAll (순서 중요!)
+                .requestMatchers("/api/auth/signup", "/api/auth/login", "/api/auth/logout", "/api/auth/me").permitAll()
+                
+                // 정적 리소스 및 페이지
+                .requestMatchers("/", "/index.html", "/login", "/signup", "/board/**", "/static/**").permitAll()
+                
+                // 읽기 API는 로그인 없이 허용
+                .requestMatchers("/api/board", "/api/board/**", "/api/comments", "/api/comments/**").permitAll()
+                
+                // 쓰기/수정/삭제 API는 인증 필요
+                .requestMatchers("/api/board/write", "/api/board/update/**", "/api/board/delete/**").authenticated()
+                
+                .requestMatchers("/api/comments/write", "/api/comments/delete/**").authenticated()
+                
+                // 나머지는 인증 필요
+                .anyRequest().authenticated()
+            )
+            .formLogin(login -> login
+                .loginPage("/login").permitAll()
+                .loginProcessingUrl("/api/auth/login")
+                .usernameParameter("userId")
+                .passwordParameter("password")
+                .successHandler((req, res, auth) -> {
+                    res.setStatus(HttpServletResponse.SC_OK);
+                    res.setContentType("application/json");
+                })
+                .failureHandler((req, res, ex) -> {
+                    res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                    res.setContentType("application/json");
+                })
+            )
+            .logout(logout -> logout
+                .logoutUrl("/api/auth/logout")
+                .logoutSuccessHandler((req, res, auth) -> {
+                    res.setStatus(HttpServletResponse.SC_OK);
+                    res.setContentType("application/json");
+                })
+            )
+            // 🔥 추가: 인증 실패 시 401 반환 (리다이렉트 방지)
+            .exceptionHandling(ex -> ex
+                .authenticationEntryPoint((req, res, authEx) -> {
+                    res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                    res.setContentType("application/json");
+                    res.getWriter().write("{\"error\": \"Unauthorized\"}");
+                })
+            );
 
-           return http.build();
-       }
+        return http.build();
+    }
     
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:3000")); // React 개발 서버
+        config.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost:8888", "http://172.30.1.24:3000", "http://172.30.1.24:8888"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
-        config.setAllowCredentials(true); // 쿠키, 세션 허용 시 필요
+        config.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
         return source;
     }
-    
-   
-
 }

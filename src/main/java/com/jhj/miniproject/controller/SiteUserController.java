@@ -32,11 +32,16 @@ public class SiteUserController {
 	private PasswordEncoder passwordEncoder;
 
 	@GetMapping("/me")
-	public ResponseEntity<?> me(Authentication auth) {
-		return ResponseEntity.ok(Map.of("userId",auth.getName()));
-	}
+    public ResponseEntity<?> me(Authentication auth) {
+        // 인증되지 않은 경우 null 반환 (200 OK)
+        if (auth == null || !auth.isAuthenticated()) {
+            return ResponseEntity.ok(Map.of("userId", (Object) null));
+        }
+        // 인증된 경우 사용자 정보 반환
+        return ResponseEntity.ok(Map.of("userId", auth.getName()));
+    }
 	
-	@PostMapping(value = "signup")
+	@PostMapping(value = "/signup")
 	public ResponseEntity<?> signup (@Valid @RequestBody SiteUserDto siteUserDto, BindingResult bindingResult) {
 		
 		// Spring Validation 결과 처리                              
@@ -67,7 +72,7 @@ public class SiteUserController {
 		// 정보 저장
 		SiteUser siteUser = new SiteUser();
 		siteUser.setUserId(siteUserDto.getUserId());
-		siteUser.setPassword(passwordEncoder.encode(siteUser.getPassword()));
+		siteUser.setPassword(passwordEncoder.encode(siteUserDto.getPassword()));
 		siteUser.setEmail(siteUserDto.getEmail());
 		siteUser.setPhone(siteUserDto.getPhone());
 		

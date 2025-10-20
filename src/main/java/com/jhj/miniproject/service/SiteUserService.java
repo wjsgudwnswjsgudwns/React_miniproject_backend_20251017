@@ -20,6 +20,10 @@ public class SiteUserService {
         Optional<SiteUser> existingUser = siteUserRepository.findByUserId(userId);
         return existingUser.isPresent(); // 존재하면 true (중복), 없으면 false
 	}
+	
+	public Optional<SiteUser> getUser(String userId) {
+		return siteUserRepository.findByUserId(userId);
+	}
 
 	public SiteUser signup(SiteUser siteUser) {
 		
