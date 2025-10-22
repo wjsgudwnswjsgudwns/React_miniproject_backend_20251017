@@ -1,0 +1,192 @@
+.post-view-container {
+  background-color: white;
+  padding: 30px;
+  border-radius: 4px;
+}
+
+.post-view-header {
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+}
+
+.post-view-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 15px;
+  line-height: 1.4;
+}
+
+.post-view-meta {
+  display: flex;
+  gap: 20px;
+  color: #666;
+  font-size: 14px;
+}
+
+.post-view-author {
+  font-weight: 500;
+}
+
+.post-view-date {
+  color: #999;
+}
+
+.post-view-content {
+  min-height: 200px;
+  line-height: 1.8;
+  color: #333;
+  font-size: 15px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  margin-bottom: 40px;
+}
+
+.post-view-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.post-view-back-btn {
+  padding: 10px 24px;
+  background-color: #f8f8f8;
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.post-view-back-btn:hover {
+  background-color: #e0e0e0;
+}
+
+.post-view-author-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.post-view-edit-btn,
+.post-view-delete-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.post-view-edit-btn {
+  background-color: #333;
+  color: white;
+}
+
+.post-view-edit-btn:hover {
+  background-color: #555;
+}
+
+.post-view-delete-btn {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.post-view-delete-btn:hover {
+  background-color: #c0392b;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .post-view-container {
+    padding: 20px 15px;
+  }
+
+  .post-view-title {
+    font-size: 20px;
+  }
+
+  .post-view-meta {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .post-view-content {
+    font-size: 14px;
+  }
+
+  .post-view-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .post-view-back-btn,
+  .post-view-author-actions {
+    width: 100%;
+  }
+
+  .post-view-author-actions {
+    justify-content: stretch;
+  }
+
+  .post-view-edit-btn,
+  .post-view-delete-btn {
+    flex: 1;
+  }
+}
+
+/* 추천 버튼 */
+.post-like-btn {
+  display: flex;
+  justify-content: center; /* 💡 가운데 정렬 */
+  margin-bottom: 25px;
+}
+
+.post-like-btn button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #e74c3c;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 5px rgba(231, 76, 60, 0.1);
+}
+
+.post-like-btn button:hover {
+  background-color: #fff5f5;
+  border-color: #e74c3c;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(231, 76, 60, 0.2);
+}
+
+.post-like-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: #e74c3c;
+  stroke-width: 2;
+  transition: all 0.2s ease;
+}
+
+/* 추천 완료 시 스타일 */
+.post-like-btn button.liked {
+  background-color: #e74c3c;
+  color: #fff;
+  border-color: #e74c3c;
+}
+
+.post-like-btn button.liked svg {
+  fill: white;
+  stroke: white;
+}

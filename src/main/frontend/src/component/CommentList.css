@@ -1,0 +1,181 @@
+.comment-list-container {
+  margin-top: 20px;
+}
+
+.comment-list-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: #999;
+  font-size: 14px;
+}
+
+.comment-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.comment-item {
+  padding: 20px;
+  border-bottom: 1px solid #e0e0e0;
+  background-color: white;
+}
+
+.comment-item:last-child {
+  border-bottom: none;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.comment-author-info {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.comment-author {
+  font-weight: 600;
+  color: #333;
+  font-size: 14px;
+}
+
+.comment-date {
+  color: #999;
+  font-size: 13px;
+}
+
+.comment-content {
+  color: #333;
+  font-size: 14px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  margin-bottom: 12px;
+}
+
+.comment-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.comment-edit-btn,
+.comment-delete-btn {
+  padding: 6px 12px;
+  border: 1px solid #ddd;
+  background-color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  color: #666;
+  transition: all 0.2s ease;
+}
+
+.comment-edit-btn:hover {
+  background-color: #f8f8f8;
+  color: #333;
+}
+
+.comment-delete-btn:hover {
+  background-color: #ffe5e5;
+  border-color: #e74c3c;
+  color: #e74c3c;
+}
+
+.comment-edit-form {
+  margin-top: 10px;
+}
+
+.comment-edit-textarea {
+  width: 100%;
+  min-height: 80px;
+  padding: 12px 15px;
+  font-size: 14px;
+  line-height: 1.6;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  outline: none;
+  resize: vertical;
+  font-family: inherit;
+  margin-bottom: 10px;
+  transition: border-color 0.2s ease;
+}
+
+.comment-edit-textarea:focus {
+  border-color: #333;
+}
+
+.comment-edit-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.comment-save-btn,
+.comment-cancel-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.comment-save-btn {
+  background-color: #333;
+  color: white;
+}
+
+.comment-save-btn:hover {
+  background-color: #555;
+}
+
+.comment-cancel-btn {
+  background-color: #f8f8f8;
+  color: #333;
+  border: 1px solid #ddd;
+}
+
+.comment-cancel-btn:hover {
+  background-color: #e0e0e0;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .comment-item {
+    padding: 15px;
+  }
+
+  .comment-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .comment-author-info {
+    width: 100%;
+  }
+
+  .comment-actions {
+    width: 100%;
+  }
+
+  .comment-edit-btn,
+  .comment-delete-btn {
+    flex: 1;
+  }
+
+  .comment-edit-actions {
+    width: 100%;
+  }
+
+  .comment-save-btn,
+  .comment-cancel-btn {
+    flex: 1;
+  }
+}

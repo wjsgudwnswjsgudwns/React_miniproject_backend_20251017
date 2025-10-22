@@ -1,0 +1,346 @@
+.buy-container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 100%);
+}
+
+.buy-hero {
+  text-align: center;
+  padding: 80px 20px 60px;
+  background: linear-gradient(135deg, #2d1b4e 0%, #1a1a1a 100%);
+}
+
+.buy-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.buy-subtitle {
+  font-size: 1.3rem;
+  color: #b3b3b3;
+  margin: 0;
+}
+
+.editions-section,
+.platforms-section,
+.system-requirements,
+.faq-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 20px;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: white;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.editions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.edition-card {
+  background: #1e1e1e;
+  border: 2px solid #333;
+  border-radius: 12px;
+  padding: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.edition-card:hover {
+  transform: translateY(-5px);
+  border-color: #6c5ce7;
+}
+
+.edition-card.selected {
+  border-color: #6c5ce7;
+  background: linear-gradient(135deg, #2d1b4e 0%, #1e1e1e 100%);
+}
+
+.edition-header {
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #333;
+}
+
+.edition-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.edition-price {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #6c5ce7;
+  margin: 0;
+}
+
+.edition-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.edition-features li {
+  color: #b3b3b3;
+  padding: 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.95rem;
+}
+
+.check-icon {
+  color: #6c5ce7;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.selected-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #6c5ce7;
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.platforms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.platform-card {
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 30px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.platform-card:hover {
+  border-color: #6c5ce7;
+  transform: translateY(-3px);
+}
+
+.platform-icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.platform-card h3 {
+  color: white;
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+
+.platform-card p {
+  color: #888;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.requirements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+}
+
+.requirement-card {
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 30px;
+}
+
+.requirement-card h3 {
+  color: white;
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #6c5ce7;
+}
+
+.requirement-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.requirement-card li {
+  color: #b3b3b3;
+  padding: 10px 0;
+  font-size: 0.95rem;
+}
+
+.requirement-card strong {
+  color: white;
+}
+
+.purchase-action {
+  max-width: 1200px;
+  margin: 0 auto 60px;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1e1e1e;
+  border: 2px solid #6c5ce7;
+  border-radius: 12px;
+  padding: 30px 40px;
+}
+
+.selected-info h3 {
+  color: white;
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+
+.selected-price {
+  color: #6c5ce7;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.purchase-btn {
+  background: linear-gradient(135deg, #6c5ce7 0%, #a55eea 100%);
+  color: white;
+  border: none;
+  padding: 18px 50px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.purchase-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 30px rgba(108, 92, 231, 0.4);
+}
+
+.faq-list {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 25px;
+  margin-bottom: 20px;
+}
+
+.faq-item h4 {
+  color: white;
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+}
+
+.faq-item p {
+  color: #b3b3b3;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.platform-select-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.platform-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.platform-purchase-btn {
+  background: linear-gradient(135deg, #6c5ce7 0%, #a55eea 100%);
+  color: white;
+  border: none;
+  padding: 20px 40px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 250px;
+  justify-content: center;
+}
+
+.platform-purchase-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(108, 92, 231, 0.5);
+}
+
+.platform-btn-icon {
+  font-size: 1.5rem;
+}
+
+.platform-btn-text {
+  font-size: 1rem;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .buy-title {
+    font-size: 2rem;
+  }
+
+  .buy-subtitle {
+    font-size: 1rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .editions-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .platforms-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .requirements-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .purchase-action {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .purchase-btn {
+    width: 100%;
+  }
+}

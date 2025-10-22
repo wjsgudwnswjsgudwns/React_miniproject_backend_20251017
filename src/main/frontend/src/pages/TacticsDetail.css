@@ -1,0 +1,110 @@
+.board-detail-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* 로딩 및 에러 메시지 */
+.loading-message,
+.error-message {
+  text-align: center;
+  padding: 60px 20px;
+  font-size: 16px;
+}
+
+.loading-message {
+  color: #666;
+}
+
+.error-message {
+  color: #e74c3c;
+  font-weight: 500;
+}
+
+/* 게시글 상세 영역 */
+.post-detail-section {
+  background-color: white;
+  border-radius: 4px;
+  margin-bottom: 40px;
+}
+
+/* 댓글 섹션 */
+.comment-section {
+  margin-top: 60px;
+  padding-top: 40px;
+  border-top: 2px solid #e0e0e0;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.comment-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.comment-count {
+  color: #666;
+  font-weight: 400;
+  font-size: 16px;
+  margin-left: 5px;
+}
+
+.comment-login-notice {
+  text-align: center;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  color: #666;
+  font-size: 14px;
+}
+
+.comment-login-notice a {
+  color: #333;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.comment-login-notice a:hover {
+  color: #000;
+}
+
+.comment-write-section {
+  margin-bottom: 30px;
+}
+
+.comment-list-section {
+  margin-top: 20px;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .board-detail-container {
+    padding: 20px 15px;
+  }
+
+  .comment-section {
+    margin-top: 40px;
+    padding-top: 30px;
+  }
+
+  .comment-title {
+    font-size: 16px;
+  }
+
+  .comment-count {
+    font-size: 14px;
+  }
+
+  .loading-message,
+  .error-message {
+    padding: 40px 15px;
+    font-size: 14px;
+  }
+}
