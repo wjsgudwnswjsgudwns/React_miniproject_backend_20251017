@@ -10,4 +10,6 @@ import com.jhj.miniproject.entity.SiteUser;
 public interface SiteUserRepository extends JpaRepository<SiteUser, Long> {
 
 	public Optional<SiteUser> findByUserId(String userId);
+	
+	public Optional<SiteUser> findByNickname(String nickname);
 }

@@ -39,21 +39,28 @@ public class BoardController {
 	private SiteUserService siteUserService;
 
 	
-	// 게시글 불러오기
-	@GetMapping
+	// 게시글 목록 조회 (검색 기능 포함)
+    @GetMapping
     public ResponseEntity<?> pageList(
             @RequestParam(name = "page", defaultValue = "0") int page, 
-            @RequestParam(name = "size", defaultValue = "10") int size) {
+            @RequestParam(name = "size", defaultValue = "10") int size,
+            @RequestParam(name = "searchType", required = false) String searchType,
+            @RequestParam(name = "keyword", required = false) String keyword) {
 
-        Page<Board> boardPage = boardService.getBoardWithPage(page, size);
-        
-        
+        Page<Board> boardPage;
+
+        // 검색어가 있으면 검색, 없으면 전체 조회
+        if(keyword != null && !keyword.trim().isEmpty()) {
+            boardPage = boardService.searchBoards(searchType, keyword, page, size);
+        } else {
+            boardPage = boardService.getBoardWithPage(page, size);
+        }
 
         Map<String, Object> pagingResponse = new HashMap<>();
-        pagingResponse.put("posts", boardPage.getContent()); // 페이징된 현재 페이지에 해당되는 게시글 리스트
-        pagingResponse.put("currentPage", boardPage.getNumber()); // 현재 페이지 번호
-        pagingResponse.put("totalPages", boardPage.getTotalPages()); // 총 페이지 수
-        pagingResponse.put("totalItems", boardPage.getTotalElements()); // 전체 글 수
+        pagingResponse.put("posts", boardPage.getContent());
+        pagingResponse.put("currentPage", boardPage.getNumber());
+        pagingResponse.put("totalPages", boardPage.getTotalPages());
+        pagingResponse.put("totalItems", boardPage.getTotalElements());
 
         return ResponseEntity.ok(pagingResponse);
     }

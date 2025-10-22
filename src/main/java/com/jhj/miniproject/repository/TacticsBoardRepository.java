@@ -6,20 +6,18 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.jhj.miniproject.entity.Board;
+import com.jhj.miniproject.entity.TacticsBoard;
 
-public interface BoardRepository extends JpaRepository<Board, Long> {
+public interface TacticsBoardRepository extends JpaRepository<TacticsBoard, Long> {
 	
 	// 제목으로 검색 (대소문자 구분 없이)
-    Page<Board> findByTitleContainingIgnoreCase(String title, Pageable pageable);
+    Page<TacticsBoard> findByTitleContainingIgnoreCase(String title, Pageable pageable);
     
     // 작성자 닉네임으로 검색
     @Query("SELECT b FROM Board b WHERE b.author.nickname LIKE %:nickname%")
-    Page<Board> findByAuthorNickname(@Param("nickname") String nickname, Pageable pageable);
+    Page<TacticsBoard> findByAuthorNickname(@Param("nickname") String nickname, Pageable pageable);
     
     // 제목 + 내용 통합 검색 (선택사항)
     @Query("SELECT b FROM Board b WHERE LOWER(b.title) LIKE LOWER(CONCAT('%', :keyword, '%')) OR LOWER(b.content) LIKE LOWER(CONCAT('%', :keyword, '%'))")
-    Page<Board> findByTitleOrContentContaining(@Param("keyword") String keyword, Pageable pageable);
-
-
+    Page<TacticsBoard> findByTitleOrContentContaining(@Param("keyword") String keyword, Pageable pageable);
 }

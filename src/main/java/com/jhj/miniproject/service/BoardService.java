@@ -25,18 +25,48 @@ public class BoardService {
 	@Autowired
 	private BoardLikeRepository boardLikeRepository;
 	
-	public Page<Board> getBoardWithPage(int page, int size) {
-		if(page < 0) {
-			page = 0;
-		}
-		
-		if(size <= 0) {
-			size = 10;
-		}
-		
-		Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
-		return boardRepository.findAll(pageable);
-	}
+	// 전체 게시글 조회 (페이징)
+    public Page<Board> getBoardWithPage(int page, int size) {
+        if(page < 0) {
+            page = 0;
+        }
+
+        if(size <= 0) {
+            size = 10;
+        }
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+        return boardRepository.findAll(pageable);
+    }
+
+    // 게시글 검색 (제목, 닉네임)
+    public Page<Board> searchBoards(String searchType, String keyword, int page, int size) {
+        if(page < 0) {
+            page = 0;
+        }
+        if(size <= 0) {
+            size = 10;
+        }
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+
+        // 검색어가 비어있으면 전체 조회
+        if(keyword == null || keyword.trim().isEmpty()) {
+            return boardRepository.findAll(pageable);
+        }
+
+        // 검색 타입에 따라 다른 메서드 호출
+        if("title".equals(searchType)) {
+            return boardRepository.findByTitleContainingIgnoreCase(keyword, pageable);
+        } else if("nickname".equals(searchType)) {
+            return boardRepository.findByAuthorNickname(keyword, pageable);
+        } else {
+            // 기본값: 전체 조회
+            return boardRepository.findAll(pageable);
+        }
+    }
+	
+	
 	
 	public Board save(Board board) {
 		return boardRepository.save(board);

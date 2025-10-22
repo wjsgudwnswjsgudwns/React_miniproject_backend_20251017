@@ -21,27 +21,29 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Board {
+public class TacticsBoard {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id; // 번호
+	private Long id;
+
+	private String title;
 	
-	private String title; // 제목
-	
-	private String content; // 내용
+	private String content;
 	
 	@CreationTimestamp
 	private LocalDateTime createDate; // 작성일
 	
 	@ManyToOne
-	private SiteUser author;
+	private SiteUser author; // 작성자
 	
 	private int view; // 조회수
 	
-	private int likes; //좋아요
+	private int likes; // 추천
 	
-	@OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
+	private int dislikes; // 비추천
+	 
+	@OneToMany(mappedBy = "tacticsBoard", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnore
 	private List<Comment> comments = new ArrayList<>();
 	
@@ -49,5 +51,4 @@ public class Board {
 	public int getCommentCount() {
 		return comments != null ? comments.size() : 0;
 	}
-
 }

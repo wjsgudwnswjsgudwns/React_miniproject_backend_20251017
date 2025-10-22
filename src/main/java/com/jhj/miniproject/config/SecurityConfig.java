@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -31,8 +32,11 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .cors(Customizer.withDefaults())
             .authorizeHttpRequests(auth -> auth
-                // 🔥 인증/회원가입 API는 최우선으로 permitAll (순서 중요!)
-                .requestMatchers("/api/auth/signup", "/api/auth/login", "/api/auth/logout", "/api/auth/me").permitAll()
+        		// ✅ 수정: 회원가입, 로그인(POST) 요청에 대해 HttpMethod.POST를 명시하여 permitAll
+                .requestMatchers(HttpMethod.POST, "/api/auth/signup", "/api/auth/login").permitAll()
+                
+                // ✅ 수정: 나머지 경로(GET)들은 별도로 명시하거나 그대로 유지
+                .requestMatchers("/api/auth/logout", "/api/auth/me","/api/orders/**", "/api/orders/myorder/**").permitAll()
                 
                 // 정적 리소스 및 페이지
                 .requestMatchers("/", "/index.html", "/login", "/signup", "/board/**", "/static/**").permitAll()

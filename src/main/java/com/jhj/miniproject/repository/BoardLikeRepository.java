@@ -9,5 +9,5 @@ import com.jhj.miniproject.entity.SiteUser;
 public interface BoardLikeRepository extends JpaRepository<BoardLike, Long> {
 	
 	public boolean existsByBoardAndUser(Board board, SiteUser user);
-
+	
 }

@@ -21,6 +21,11 @@ public class SiteUserService {
         return existingUser.isPresent(); // 존재하면 true (중복), 없으면 false
 	}
 	
+	public boolean isNicknameDuplicated (String nickname) {
+        Optional<SiteUser> existingNickname = siteUserRepository.findByNickname(nickname);
+        return existingNickname.isPresent(); // 존재하면 true (중복), 없으면 false
+	}
+	
 	public Optional<SiteUser> getUser(String userId) {
 		return siteUserRepository.findByUserId(userId);
 	}

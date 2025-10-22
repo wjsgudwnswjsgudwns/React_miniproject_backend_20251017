@@ -41,4 +41,8 @@ public class Comment {
 	@JsonIgnore
 	private Board board;
 
+	@ManyToOne (fetch = FetchType.LAZY)
+	@JoinColumn(name = "tactics_board_id")
+	@JsonIgnore
+	private TacticsBoard tacticsBoard;
 }

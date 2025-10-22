@@ -31,6 +31,7 @@ public class SiteUserController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	// 로그인 한 사람 정보
 	@GetMapping("/me")
     public ResponseEntity<?> me(Authentication auth) {
         // 인증되지 않은 경우 null 반환 (200 OK)
@@ -41,6 +42,7 @@ public class SiteUserController {
         return ResponseEntity.ok(Map.of("userId", auth.getName()));
     }
 	
+	// 회원가입
 	@PostMapping(value = "/signup")
 	public ResponseEntity<?> signup (@Valid @RequestBody SiteUserDto siteUserDto, BindingResult bindingResult) {
 		
@@ -69,10 +71,18 @@ public class SiteUserController {
 			return ResponseEntity.badRequest().body(error);
 		}
 		
+		// 아이디 중복 확인
+		if(siteUserService.isNicknameDuplicated(siteUserDto.getNickname())) {
+			Map<String, String> error = new HashMap<>();
+			error.put("nicknameDuplicated", "이미 사용중인 닉네임입니다.");
+			return ResponseEntity.badRequest().body(error);
+		}
+		
 		// 정보 저장
 		SiteUser siteUser = new SiteUser();
 		siteUser.setUserId(siteUserDto.getUserId());
 		siteUser.setPassword(passwordEncoder.encode(siteUserDto.getPassword()));
+		siteUser.setNickname(siteUserDto.getNickname());
 		siteUser.setEmail(siteUserDto.getEmail());
 		siteUser.setPhone(siteUserDto.getPhone());
 		

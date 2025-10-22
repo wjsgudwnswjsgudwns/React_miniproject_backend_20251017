@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.jhj.miniproject.entity.Board;
 import com.jhj.miniproject.entity.Comment;
+import com.jhj.miniproject.entity.TacticsBoard;
 import com.jhj.miniproject.repository.CommentRepository;
 
 @Service
@@ -31,8 +32,15 @@ public class CommentService {
 		return commentRepository.findById(commentId);
 	}
 	
+	// 전술게시판 댓글 조회
+	public List<Comment> getCommentListByTacticsBoard(TacticsBoard tacticsBoard) {
+		return commentRepository.findByTacticsBoard(tacticsBoard);
+	}
+	
 	// 특정 댓글 삭제
 	public void dropComment(Long id) {
 		commentRepository.deleteById(id);
 	}
+	
+	
 }
