@@ -36,7 +36,7 @@ public class SiteUserController {
     public ResponseEntity<?> me(Authentication auth) {
         // 인증되지 않은 경우 null 반환 (200 OK)
         if (auth == null || !auth.isAuthenticated()) {
-            return ResponseEntity.ok(Map.of("userId", (Object) null));
+            return ResponseEntity.ok(Map.of("userId", (Object) "anonymous"));
         }
         // 인증된 경우 사용자 정보 반환
         return ResponseEntity.ok(Map.of("userId", auth.getName()));
